@@ -8,8 +8,7 @@ spec:
   # or mayabe external uses to connect to( eg browser)
   selector:
     mylabelname: webapp # Match any pods found in cluster with same key value pair
-    release: "0-5"
-
+    
   ports:
     - name: http
       port: 80
