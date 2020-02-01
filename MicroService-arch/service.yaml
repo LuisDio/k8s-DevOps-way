@@ -1,4 +1,4 @@
-# Service for the webapp
+############## Service for the webapp##############
 apiVersion: v1
 kind: Service
 metadata:
@@ -17,7 +17,7 @@ spec:
   type: NodePort
 
 ---
-# Service for ActiveMQ (queue)
+############# Service for ActiveMQ (queue)############
 apiVersion: v1
 kind: Service
 metadata:
@@ -38,3 +38,45 @@ spec:
       port: 61616
 
   type: NodePort # Accessible outside
+
+
+---
+############## Service for position tracker############
+apiVersion: v1
+kind: Service
+metadata:
+  name: fleetman-position-tracker
+
+spec:
+  # This define which pods are going to be represented by this Service
+  # The service become a network endpoint for either other Service
+  # or mayabe external uses to connect to( eg browser)
+  selector:
+    app: position-tracker # Match any pods found in cluster with same key value pair
+
+  ports:
+    - name: http
+      port: 8080
+
+  type: ClusterIP # Accessible only within Cluster
+
+
+---
+############# Service for api gateway##############
+apiVersion: v1
+kind: Service
+metadata:
+  name: fleetman-api-gateway
+
+spec:
+  # This define which pods are going to be represented by this Service
+  # The service become a network endpoint for either other Service
+  # or mayabe external uses to connect to( eg browser)
+  selector:
+    app: api-gateway # Match any pods found in cluster with same key value pair
+
+  ports:
+    - name: http
+      port: 8080
+
+  type: ClusterIP # Accessible only within Cluster
