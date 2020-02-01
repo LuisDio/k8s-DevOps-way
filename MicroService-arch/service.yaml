@@ -1,4 +1,4 @@
-
+# Service for the webapp
 apiVersion: v1
 kind: Service
 metadata:
@@ -17,6 +17,7 @@ spec:
   type: NodePort
 
 ---
+# Service for ActiveMQ (queue)
 apiVersion: v1
 kind: Service
 metadata:
