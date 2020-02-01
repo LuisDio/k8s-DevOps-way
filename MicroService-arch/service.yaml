@@ -1,0 +1,39 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: fleetman-webapp
+spec:
+  # This define which pods are going to be represented by this Service
+  # The service become a network endpoint for either other Service
+  # or mayabe external uses to connect to( eg browser)
+  selector:
+    app: webapp # (select any pod that match any pods found in cluster with same key value pair
+  ports:
+    - name: http
+      port: 80
+      nodePort: 30080 # Expose outside to this port
+
+  type: NodePort
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fleetman-queue
+spec:
+  # This define which pods are going to be represented by this Service
+  # The service become a network endpoint for either other Service
+  # or mayabe external uses to connect to( eg browser)
+  selector:
+    app: queue # Match any pods found in cluster with same key value pair
+
+  ports:
+    - name: http
+      port: 8161
+      nodePort: 30010 # Expose outside to this port
+
+    - name: endpoint # for the message and no need for nodePort cause will not be exposed to outside
+      port: 61616
+
+  type: NodePort # Accessible outside
