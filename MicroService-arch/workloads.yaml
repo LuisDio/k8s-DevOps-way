@@ -92,3 +92,27 @@ spec:
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: production-microservice
+
+---
+########### Deployment pod for webapp angular############
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp # Deployment name
+spec:
+  selector:
+    matchLabels:
+      app: webapp
+  replicas: 1
+  template: # template for the pods
+
+    metadata:
+      labels:
+        app: webapp # labels apply to the pod
+    spec:
+      containers:
+      - name: webapp
+        image: richardchesterwood/k8s-fleetman-webapp-angular:release1
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: production-microservice
