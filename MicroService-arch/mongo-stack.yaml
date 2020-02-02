@@ -17,6 +17,15 @@ spec:
       containers:
       - name: mongodb
         image: mongo:3.6.5-jessie
+        volumeMounts:
+          - name: mongo-persistent-storage
+            mountPath: /data/db # folder inside container we want k8b to mount to a folder
+      volumes:                  # Where to store the data for now host machine
+        - name: mongo-persistent-storage
+          # pointer to the configuration of how we want the mount to be implemented
+          persistentVolumeClaim:
+            claimName: mongo-pvc
+
 
 ---
 apiVersion: v1
