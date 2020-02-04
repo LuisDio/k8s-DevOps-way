@@ -11,10 +11,9 @@ spec:
     app: webapp # (select any pod that match any pods found in cluster with same key value pair
   ports:
     - name: http
-      port: 80
-      nodePort: 30080 # Expose outside to this port
+      port: 80 # Expose outside to this port
 
-  type: NodePort
+  type: LoadBalancer # Automatically provisione LoadBalancer
 
 ---
 ############# Service for ActiveMQ (queue)############
@@ -32,12 +31,12 @@ spec:
   ports:
     - name: http
       port: 8161
-      nodePort: 30010 # Expose outside to this port
+      # Expose outside to this port
 
     - name: endpoint # for the message and no need for nodePort cause will not be exposed to outside
       port: 61616
 
-  type: NodePort # Accessible outside
+  type: ClusterIP # Accessible outside
 
 
 ---
